@@ -6,8 +6,8 @@ export default {
     });
   },
 
-  errorRes: (res, data) => {
-    res.json({
+  errorRes: (res, data, code) => {
+    res.status(code).json({
       status: false,
       info: data,
     });
