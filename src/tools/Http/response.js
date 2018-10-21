@@ -7,7 +7,7 @@ export default {
   },
 
   errorRes: (res, data, code) => {
-    res.status(code).json({
+    res.status(code || 500).json({
       status: false,
       info: data,
     });

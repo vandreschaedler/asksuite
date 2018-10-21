@@ -15,12 +15,13 @@ const fetch = (req, res) => {
     return httpResponse.errorRes(res, errors.array()[0], 422);
   }
 
-
   return crawling(req.body)
     .then((info) => {
       httpResponse.successRes(res, info);
     })
-    .catch(err => httpResponse.errorRes(res, err, 500));
+    .catch((err) => {
+      httpResponse.errorRes(res, err.msg || err, err.code || 500);
+    });
 };
 
 router.post('/buscar', validateRequest, fetch);

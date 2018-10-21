@@ -26,8 +26,17 @@ export const scraping = (html) => {
       images,
     });
   });
-  return new Promise((response) => {
+  return new Promise((response, reject) => {
     log.success('Scraping finished!');
+    if (!rooms.length) {
+      log.error('There is no data to show..');
+      const error = {
+        msg: 'Não foram encontrados quartos no período informado!',
+        code: 404,
+      };
+      reject(error);
+    }
+
     response(rooms);
   });
 };
@@ -46,7 +55,8 @@ export const crawling = (dates) => {
       .wait(10000)
       .evaluate(() => document.querySelector('body').innerHTML)
       .then(scraping)
-      .catch(() => {
+      .catch((err) => {
+        if (err.code === 404) { throw err; }
         log.warn('Error on fetch data - trying again..');
         return getHtml(crawler);
       });
