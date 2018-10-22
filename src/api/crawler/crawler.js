@@ -43,7 +43,7 @@ export const scraping = (html) => {
 
 
 export const crawling = (dates) => {
-  const nightmare = Nightmare({ show: true });
+  const nightmare = Nightmare({ show: false });
   const url = `https://myreservations.omnibees.com/default.aspx?q=5462&version=MyReservation&sid=2ab41776-0168-451d-97e8-376ebe4a81f4#/&diff=false&CheckIn=${formatRequestDate(dates.checkin)}&CheckOut=${formatRequestDate(dates.checkout)}&Code=&group_code=&loyality_card=&NRooms=1&ad=2&ch=0&ag=-`;
 
   function getHtml(crawler) {
